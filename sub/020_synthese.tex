@@ -1,0 +1,19 @@
+% -*- coding: utf-8 -*-
+% !TEX root = ../main.tex
+
+% TODO Insérer la synthèse du stage
+
+Pouvoir analyser les performances de son code de manière rapide et efficace est primordial pour les application parallèles développées à large échelle qui sont désormais essentielles dans de nombreux domaines comme dans la recherche, les simulations physiques, la prédiction de la météo, l'optimisation de la forme d'un aéronef, ... \newline
+Le \verb!PEPR NUMPEx! est un projet de recherche d'ampleur nationale dont l'objectif est la définition de la pile logicielle de la future machine de calcul exascale Alice Recoque qui sera installée au Très Grand Centre de Calcul du CEA de Bruyères-le-Châtel. Au sein de ce projet, l'équipe \verb!BENAGIL! du laboratoire \verb!Samovar! de \verb!Télécom SudParis! a pour objectif le développement d'une librairie, \verb!PALLAS!, qui permet l'analyse de la trace d'exécution d'un code qui soit adaptée au passage à l'échelle exascale. Ainsi, \verb!PALLAS! permet de générer une trace d'exécution contenant les détails de l'exéction d'une application. Ces traces, au format \verb!PALLAS! ont pour caractéristique d'être de taille raisonnable, et d'avoir une incidence négligeable sur la durée d'exécution et les performances de l'application.\newline
+Aujourd'hui, \verb!PALLAS! enregistre la trace et les métriques associées en mémoire pendant l'exécution de l'application en mémoire et ne les stocke sur le disque qu'à la fin de l'exécution. Cela peut-être problèmatique sur de nombreux aspects, notamment pour des traces assez volumineuses (plusieurs centaines de Gb).
+L'objectif de ce stage de première année est alors d'analyser les performances de \verb!PALLAS!, et d'implémenter un flush périodique sur les disques suivant une métrique à définir pendant l'exécution même de l'applicaiton.
+
+
+%%%
+%%%
+
+\paragraph*{Mots-clés}\label{par:mots-cles}
+
+% TODO Mots-clés de votre rapport de stage
+
+Trace d'exécution, performance, analyse, exascale
