@@ -35,9 +35,6 @@ jobs:
       - name: Commit and push PDF if changed
         run: |
           git add rapport/main.pdf
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-          else
-            git commit -m "Auto-update rapport.pdf [skip ci]"
-            git push
+          git commit -m "Auto-update rapport.pdf [skip ci]"
+          git push
 
