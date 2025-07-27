@@ -1,0 +1,43 @@
+name: Compile and commit PDF to main/rapport
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-commit:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install LaTeX and Make
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-full make
+
+      - name: Compile PDF using Makefile
+        run: make
+
+      - name: Move PDF to rapport/
+        run: |
+          mkdir -p rapport
+          cp rapport.pdf rapport/rapport.pdf
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      - name: Commit and push PDF if changed
+        run: |
+          git add rapport/rapport.pdf
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Auto-update rapport.pdf [skip ci]"
+            git push
+
