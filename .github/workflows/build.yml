@@ -25,7 +25,7 @@ jobs:
       - name: Move PDF to rapport/
         run: |
           mkdir -p rapport
-          cp rapport.pdf rapport/rapport.pdf
+          cp main.pdf rapport/main.pdf
 
       - name: Configure Git
         run: |
@@ -34,7 +34,7 @@ jobs:
 
       - name: Commit and push PDF if changed
         run: |
-          git add rapport/rapport.pdf
+          git add rapport/main.pdf
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
