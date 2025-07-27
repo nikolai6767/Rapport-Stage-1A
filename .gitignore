@@ -26,7 +26,7 @@
 *.synctex.gz
 *.synctex(busy)
 *.toc
-main.pdf
+
 
 # Externalisation de TikZ
 *.dpth
