@@ -16,13 +16,13 @@ jobs:
       image: ghcr.io/xu-cheng/texlive-full:latest
 
   steps:
-    - name: Checkout
+  - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Compile
+  - name: Compile
       run: make
 
-    - name: PDF
+  - name: PDF
       uses: actions/upload-artifact@v3
       with:
         name: pdf-output
