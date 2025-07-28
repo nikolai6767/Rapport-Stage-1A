@@ -15,19 +15,19 @@ jobs:
     container:
       image: ghcr.io/xu-cheng/texlive-full:latest
 
-  steps:
-  - name: Checkout
-      uses: actions/checkout@v3
+    steps:
+    - name: Checkout
+        uses: actions/checkout@v3
 
-  - name: Compile
-      run: |
-        sudo apt-get make  
-        make
+    - name: Compile
+        run: |
+          sudo apt-get install make  
+          make
 
-  - name: PDF
-      uses: actions/upload-artifact@v3
-      with:
-        name: pdf-output
-        path: '*.pdf'
+    - name: PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: pdf-output
+          path: '*.pdf'
 
 
