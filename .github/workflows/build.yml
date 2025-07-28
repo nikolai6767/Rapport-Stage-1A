@@ -5,6 +5,8 @@ on:
     paths:
       - '**.tex'
       - '**.yml'
+      - '**.bib'
+      - Makefile
     pull_requests:
 
 jobs:
