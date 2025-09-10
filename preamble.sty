@@ -12,7 +12,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% DÉCLARATION DU PAQUET %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\usepackage{forest}
+\usetikzlibrary{arrows.meta,positioning}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{preamble}[2025/07/16 ensIIE report package]
 
@@ -101,7 +102,7 @@ numbib % Number the Bibliography heading (default is no number).
 \renewcommand{\arraystretch}{1.5} % Pour qu'il y ait un peu plus d'espace verticale dans les cellules des tableaux
 
 % Contenu de l'entête et pied de page (défaut)
-% \lhead{{\textsc{\theauthor}}}
+\lhead{{\textsc{\theauthor}}}
 % \chead{haut de page centre} % Facultatif
 \rhead{Test}
 % \lfoot{\textsc{\makeatletter\@author\makeatother}} % Facultatif

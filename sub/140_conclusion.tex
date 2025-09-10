@@ -3,6 +3,12 @@
 
 \subsection{Conclusion}\label{ssec:conclusion_conclusion}
 
+Ce stage m'as permis de faire le tour de plusieurs points clés du fonctionnement de \verb!PALLAS!.
+En effet, j'ai pu, dans un premier temps, afin de prendre en main les outils nouveaux, étudier le fonctionnement d'une application très utile en pratique, \verb!pallas\_print!.
+Dans un second temps, j'ai eu pu étudier l'impact général du tracé avec \verb!EZTrace! au format \verb!PALLAS! sur le programme.
+Enfin, j'ai vérifié des points clés de l'écriture sur les disques avec une étude de la tailles des sous-vecteurs ainsi que de la compression des données en étudiant différents algorithmes 
+de compression proposés par \verb!PALLAS!, tant sous l'aspect de la perte d'information que sur leurs impacts sur le temps total d'exécution du programme.
+
 %%%%%%%%%
 %%%%%%%%%
 %%%%%%%%%
@@ -12,6 +18,19 @@
 
 % TODO Vos retours d'expérience : ce que vous avez appris/découvert
 
+A travers ce stage j'ai pu mettre en application beacoup des outils appris lors de ma première année à l'école, comme la programmation impérative et orientée objet, ainsi que 
+l'utilisation du \verb!shell! et le scripting avec \verb!bash! qui m'as permis d'automatiser beaucoup de tâches ainsi que de récupérer aisément différentes données liées 
+à l'exécution de différents programmes.
+De plus, j'ai beaucoup appris à travers l'utilisation de programmes nouveaux comme \verb!screen! qui permet de lancer des programmes et pouvoir se "détacher"
+du processus concerné. De plus, j'ai appris l'utilisation de la bibliothèque \verb!time! qui permet d'avoir très facilement des données liées au temps dans un programme. Côté, \verb!python!
+j'ai appris à utiliser différentes bibliothèques comme par exemple \verb!matplotlib! ou \verb!pandas! pour récupérer et aggréger des données puis les visualiser.
+
+De plus, ce stage m'as permis de découvrir le monde de la recherche. En effet, j'ai pu apprendre à travailler en autonomie sur des sujets demandant des prises d'initiative, tout en étant 
+encadré par des enseignants qui ont su me guider au mieux tout au long de ce stage, avec 
+parfois le besoin de mettre en place de nouveaux outils (comme avec \verb!pallas\_durations!). Le cadre de \verb!Télécom SudParis!, quant à lui, m'as permis d'échanger au quotidien 
+avec des enseignants-chercheurs ainsi que des doctorants et en apprendre plus sur leur travail. Enfin, j'ai eu l'occasion d'assister à une soutennace de thèse, ce qui m'as 
+donné un apperçu de la finalité du travail des doctorants que j'ai côtoyé.
+
 %%%%%%%%%
 %%%%%%%%%
 %%%%%%%%%
@@ -20,6 +39,10 @@
 \subsection{Perspectives}\label{ssec:conclusion_perspectives}
 
 % TODO Les perspectives d'amélioration ou d'utilisation de votre programme/de ce que vous avez développé
+
+Tout d'abord, j'aurais apprécié avoir le temps de mettre en place et d'évaluer le flush progressif sur les disques des différents sous-vecteurs pendant l'exécution, et non d'un seul coup à la fin de celle-ci.\\
+De plus, il serait intéressant de fixer le bug à cause duquel il n'est pas possible de parcourir deux fois les données d'une trace (l'équipe avait déjà reglé le fait qu'il était impossible 
+d'ouvrir deux traces dans un même programme, ce qui pouvait être problématique pour de futures analyses de traces).
 
 %%%%%%%%%
 %%%%%%%%%

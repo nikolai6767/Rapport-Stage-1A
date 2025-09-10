@@ -3,9 +3,46 @@
 
 % TODO Expliquer la solution implémentée plus en détails (extraits de code, interfaces des applications, l’interface graphique des outils utilisés...)
 
-\begin{terminalcode}
-$ echo "Hello world!"
-Hello world!
-$ sleep 1
-$
-\end{terminalcode}
+
+\subsection{Structures de données mises en place}\label{ssec:details_durations}
+
+Afin de mettre en place les outilss utiles à l'analyse des programme, une structure de données \verb!duration! a été mise en place.
+Celle-ci permet d'avoir des données statitsiques comme le temps total, les durées minimale, maximale, le nombre d'appels, mais également un tableau contenant les durées pour chaque appel et les tailles associées
+(utile pour observer le temps d'appel à une fonction en fonction de la taille du bloc en question).
+
+\tcbFileInput{cpp}{\faCode}{lst/duration.cpp}{Structure duration}{lst:duration}
+
+Ensuite, il a fallu mettre en place la fonction \verb!update_durations! qui permet de mettre à jour la structure \verb!duration!. Cette fonction permet aussi d'initialiser la structure
+lors du premier appel.
+Les \verb!struct timespec! sont des structures liées à la librairie \verb!time.h! qui permet de stocker le temps sous forme d'une composante en secondes et d'une composante en nanosecondes, 
+ce qui est utile ici dans le cadre d'une analyse de fonctions de les appels peuvent être extrêmement courts.
+
+\tcbFileInput{cpp}{\faCode}{lst/update.cpp}{Fonction de mise à jour de la structure}{lst:update}
+
+A la fin du code (à la fin de la dernière fonction appellée par la librairie \verb!PALLAS! qui est une fonction qui permet de finaliser l'écriture de la trace sur le disque), 
+on place les deux fonctions suivantes en fonction du besoin. La première enregistre au format
+\verb!.csv! les données statistiques d'une structure \verb!duration! et l'autre toutes les données de chaque appel.
+De plus, on utilise un tableau global qui nous permet d'avoir les ressources accessibles partout dans le code.
+
+\tcbFileInput{cpp}{\faCode}{lst/write.cpp}{Fonctions d'enregistrement de la structure}{lst:write}
+
+\subsection{Analyse de la compression - test $R^2$}\label{ssec:comp}
+
+Un test statistique classique pour comparer deux échantillons de tailles identiques est le test $R^2$.\\
+Voici la formule utilisée, avec $y$ l'échantillon de référence et $\hat{y}$ l'échantillon à comparer :
+
+\[
+R^2 \;=\; 1 - \frac{SS_{\mathrm{res}}}{SS_{\mathrm{tot}}}
+\qquad\text{où}\qquad
+SS_{\mathrm{res}} \;=\; \sum_{i=1}^{n} (y_i - \hat{y}_i)^2,
+\;\;
+SS_{\mathrm{tot}} \;=\; \sum_{i=1}^{n} (y_i - \bar{y})^2.
+\]
+
+\[
+\bar{y} \;=\; \frac{1}{n}\sum_{i=1}^{n} y_i\]
+
+
+Ensuite, l'implémentation est réalisée de la manière suivante, qui permet de passer directement les adresses des fichiers \verb!.csv! contenant les timestamps :
+
+\tcbFileInput{cpp}{\faCode}{lst/r2.cpp}{Mise en place du test $R^2$}{lst:r2}

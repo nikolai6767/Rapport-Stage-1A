@@ -191,15 +191,15 @@
 % Définition du style des pages préliminaires
 % Ajout de l'anglais
 \newcommand{\pageMacro}{}
-\newcommand{\pageMacroFR}{sur}
-\newcommand{\pageMacroEN}{of}
+\newcommand{\pageMacroFR}{sur }
+\newcommand{\pageMacroEN}{of }
 
 \fancypagestyle{FirstPages}
 {
   \lhead{{\thetitle}}
   % \chead{haut de page centre} % Facultatif
   \rhead{\storedYears}
-  \lfoot{\textsc{\theauthor}} % Facultatif
+  % \lfoot{\textsc{\theauthor}} % Facultatif
   \cfoot{}
   \rfoot{Page \thepage{} \pageMacro{} \pageref*{EndFirstPages}} % Facultatif
   % \renewcommand{\headrulewidth}{0.4pt}

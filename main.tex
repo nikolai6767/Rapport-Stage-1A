@@ -1,7 +1,7 @@
 % -*- coding: utf-8 -*-
 
 % \documentclass[12pt, a4paper, titlepage]{article}
-\documentclass[language=en, year=1A, enterprise=ensIIE]{ensiie-report}
+\documentclass[language=fr, year=1A, enterprise=ensIIE]{ensiie-report}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%% DÉCLARATION DU PRÉAMBULE %%%%%%%
@@ -28,12 +28,12 @@
 
 % /!\ L'externalisation ne fonctionne pas sur Overleaf.
 
-% \tikzexternalize
-% [
-%     prefix=tikz/build/,
-%     up to date check={md5},
-%     optimize command away=\AddToShipoutPictureBG
-% ] % Chemin du dossier qui contient les graphiques TikZ
+\tikzexternalize
+[
+    prefix=tikz/build/,
+    up to date check={md5},
+    optimize command away=\AddToShipoutPictureBG
+] % Chemin du dossier qui contient les graphiques TikZ
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% MÉTADONNÉES %%%%%%%%%%%%
@@ -43,7 +43,7 @@
 % Standard macros
 \title{Analyse et Optimisation des performances du format de trace PALLAS pour les architectures de calcul exascale} % Sujet du stage
 \author{Nikolaï MONTICELLI} % Prénom NOM de l'étudiant(e)
-\date{17 juin 2025 to 29 août 2025} % Dates du stage
+\date{du 17 juin 2025 au 29 août 2025} % Dates du stage
 
 % TODO
 % Custom macros
@@ -55,7 +55,7 @@
 \logoEnterprise{img/LOGO_TSP.png} % Chemin vers le logo de l'entreprise du stage (ex : img/logo_entreprise.png)
 \academicSupervisor{Dimitri WATEL} % Tuteur de stage
 \internshipSupervisor{François TRAHAY} % Maître de stage
-\internshipEnterprise{Télécom Sud Paris (Évry-Courcouronnes, 91)} % Lieu du stage
+\internshipEnterprise{Télécom SudParis (Évry-Courcouronnes, 91)} % Lieu du stage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% DÉBUT DU DOCUMENT %%%%%%%%%%
@@ -166,10 +166,10 @@
 %%%%%% RÉSULTATS OBTENUS %%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Résultats obtenus}\label{sec:resultats_obtenus}
+% \section{Résultats obtenus}\label{sec:resultats_obtenus}
 
-\input{sub/130_resultats.tex}
-\newpage
+% \input{sub/130_resultats.tex}
+% \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% CONCLUSION %%%%%%%%%%
