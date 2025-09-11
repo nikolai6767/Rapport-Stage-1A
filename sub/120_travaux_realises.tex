@@ -48,12 +48,24 @@ Ensuite, il y a une structure par bloc de code que l'on veut analyser avec les d
 le nombre d'appels au bloc analysé et le temps total passé dans ce bloc.\\
 
 Enfin, il y a une fonction permettant de mettre cette structure à jour à chaque appel au bloc de code que l'on souhaite analyser.\newline
-Pour visualiser ces données on a des fonctions permettant d'écrire ces données sur le disque.
+Pour visualiser ces données on a des fonctions permettant d'écrire ces données sur le disque.\\
+
+Il a fallu ensuite parcourir le code à analyser et identifier les fonctions et bouts intéressants à étudier.
+
+Voici un exemple de code avec l'utilisation des stuctures mises en place pour son étude :
+\tcbFileInput{cpp}{\faCode}{lst/exemple.cpp}{Exemple d'analyse de la fonction write\_to\_file relative à un sous-vecteur}{lst:update}
+On observe alors que l'on a bien l'utilisation de la librairie \verb!time.h! avec la structure \verb!struct timespec! ainsi que de la fonction \verb!clock_gettime! utilisée
+avec la caractéristique \verb!CLOCK_MONOTONIC! qui signifie que l'on enregistre le temps à partir d'un point défini (\verb!t1! ici) et non de manière absolue. Enfin, on a utilise bien
+\verb!update_durations! pour mettre à jour nos données et \verb!duration_write_csv! pour écrire les données sur les disques.
 
 \subsection{Analyse du programme pallas\_print}\label{ssec:pallas_print}
 \subsubsection{Positionnement du problème}\label{ssec:pallas_print_pbm}
 
 La première tâche réalisée lors de ce stage a été l'analyse du programme pallas\_print qui permet d'afficher à l'écran une trace au format \verb!PALLAS!.
+Cette action est plus complexe à réaliser par rapport aux anciens formats de trace tels que \verb!OTF2!.\\
+En effet, \verb!OTF2! stocke les données de manière linéaire donc pour récupérer les données dans l'ordre il suffit de parcourir la trace linéairement.\\
+Pour \verb!PALLAS!, en revanche cela est plus complexe car le stockage se fait par threads et les données sont repertoriées par évènements, boucles et séquences. Ainsi, il faut réussir 
+à récupérer les données d'exécution dans l'ordre et de manière optimale.\\
 Pour ce faire, plusieurs points clés ont été analysés comme les différentes fonctions composant ce programme ainsi que la décomposition de certaines d'entre elles.
 
 \begin{figure}[!h]
@@ -120,7 +132,7 @@ Afin d'analyser l'overhead de manière précise, il a fallu exécuter tous les b
 Ces benchmarks ont été itérés 20 fois pour plus de précision.
 
 De plus, il a fallu récupérer ces données d'exécution dans les fichiers de log de ces derniers et enfin les tracer à l'aide de la bibliothèque \verb!matplotlib! de \verb!Python!.
-Afin d'uniformiser les barres relatives à chaque application, les valeurs de ces dernières ont normalisées par les données de l'application Vanilla (sans tracé).
+Afin d'uniformiser les barres relatives à chaque application, les valeurs de ces dernières ont normalisées par les données de l'application Vanilla (sans traçage).
 
 \subsubsection{Résultats}\label{ssec:overhead_res}
 
@@ -131,12 +143,12 @@ Afin d'uniformiser les barres relatives à chaque application, les valeurs de ce
     \label{fig:overhead}
 \end{figure}
 
-Les résultats de l'overhead induit par le tracé de \verb!EZTrace! sont représentés dans le graphique~\ref{fig:overhead}.
+Les résultats de l'overhead induit par le traçage avec \verb!EZTrace! sont représentés dans le graphique~\ref{fig:overhead}.
 On constate que dans les cas comme \verb!NAS BT!, \verb!NAS FT!, \verb!NAS MG!, \verb!NAS SP! et \verb!LULESH!, on a un impact inférieur à 10\% du temps total d'exécution de l'application.
 Dans les cas des benchmarks \verb!NAS BT! et surtout \verb!NAS LU! on a un impact significatif sur le temps d'exécution total de l'application qui atteint un maximum de 64\%.
-Ainsi, on peut conclure que dans les cas d'applications très régulières, l'overhead induit par l'utilisation de \verb!PALLAS! avec \verb!EZTrace! reste suffisament négligeable.
+Ainsi, on peut conclure que dans les cas d'applications très régulières, l'overhead induit par l'utilisation de \verb!PALLAS! avec \verb!EZTrace! reste suffisament acceptable.
 
-\subsection{Analyse de la compression et de l'écriture sur les disque de PALLAS}\label{ssce:wrt_write}
+\subsection{Analyse de la compression et de l'écriture sur les disques de PALLAS}\label{ssce:wrt_write}
 
 \subsubsection{Situation actuelle}\label{ssec:wrt_situ}
 
@@ -167,7 +179,7 @@ Puis des graphiques sont réalisés grace à des scprits \verb!python! qui perme
     \caption{Fonctions d'écriture et de compression}
     \label{fig:cw_global}
 \end{figure}
-Tout d'abord, l'écriture sur le disque ainsi que la compression des données sont réalisés par la fonction \verb!pallas_compress_write! (abrégé par pcw dans le graphique~\ref{fig:pcw_global}),
+Tout d'abord, l'écriture sur le disque ainsi que la compression des données sont réaliséss par la fonction \verb!pallas_compress_write! (abrégée par pcw dans le graphique~\ref{fig:pcw_global}),
 donc avant de lancer les programmes sur différentes tailles de sous-vecteurs, il faut observer cette fonction là.
 Le nombre d'appels à chaque fonction dans chacun des benchmarks est écrit au dessus de chaque barre.\\
 On remarque que le temps total de la fonction de compression et d'écriture est dû principalement à la fonction d'écriture ainsi que celle de compression.
@@ -200,16 +212,16 @@ qui prennent le plus de temps.\\
 \end{figure}
 Dans le graphique~\ref{fig:d}, une moyenne a été réalisée sur toutes les applications observées par taille de sous-vecteur et par fonction observée (ici l'écriture d'un vecteur de durées a été observée).
 On remarque alors que c'est pour une taille de sous-vecteur de \verb!1000!, c'est-à-dire la longueur par défaut que l'on a les meilleurs résultats. 
-En rouge, on observe également le pic mémoire lors des différentes exécutions, qui est assez stable mais minime pour la taille de \verb!1000!.
-Mais ce graphique est à relativiser car une moyenne non pondérée a été faire alors que les différentes traces ont des tailles extrêmement variées.
+En rouge, on observe également le pic mémoire lors des différentes exécutions, qui est assez stable mais minimé pour la taille de \verb!1000!.
+Cependant, ce graphique est à relativiser car une moyenne non pondérée a été faire alors que les différentes traces ont des tailles extrêmement variées.
 
 Enfin, pour la comparaison des comportements des fonctions les plus coûteuses en fonction de la taille des sous-vecteurs (écriture et compression de ces derniers),
 on retrouve les résultats dans les graphiques~\ref{fig:a},~\ref{fig:b} et~\ref{fig:c}.
 
 On observe alors que la variation des tailles de sous-vecteurs n'a pas un impact marquant sur ces fonctions. Par contre, grâce aux croix noires sur ces graphiques qui représentent le temps d'exécution total du programme,
-on constate que la taille des sous-vecteurs a tout de même un impact sur le temps d'exécution total (de l'ordre de 2 secondes pour les application observées).
+on constate que la taille des sous-vecteurs n'a pas réellement d'impact sur le temps d'exécution total (moins de \verb!0.2!\% du temps d'exécution total).
 
-Au final, même si la taille des sous-vecteurs n'a pas un grand impact sur l'application, la taille fixée à \verb!1000! semble être optimale.
+Au final, même si la taille des sous-vecteurs n'a pas un grand impact sur l'application, la taille fixée à \verb!1000! semble être adaptée.
 
 
 \clearpage
@@ -218,8 +230,8 @@ Au final, même si la taille des sous-vecteurs n'a pas un grand impact sur l'app
 \subsection{Etude de différents algorithmes de compression}\label{ssec:comp}
 \subsubsection{Situation actuelle}\label{ssec:comp_situ}
 
-L'algorithme de compression choisi par défaut est \verb!ZSTD! qui est sans perte, c'est-à-dire qu'il garantit une restitution parfaite des données, sans erreurs.
-Mais \verb!PALLAS! propose d'autres algorithmes tels que \verb!ZFP! qui sont "lossy", c'est-à-dire avec une certaine proportion de perte autorisée.
+L'algorithme de compression choisi par défaut est \verb!ZSTD!\cite{zstd}, pour \verb!Zstandart!, qui est sans perte, c'est-à-dire qu'il garantit une restitution parfaite des données, sans erreurs.
+Mais \verb!PALLAS! propose d'autres algorithmes tels que \verb!ZFP!\cite{zfp} qui sont "lossy", c'est-à-dire avec une certaine proportion de perte autorisée, qui supporte les vecteurs d'entiers et de flottants.
 L'objectif est d'évaluer la perte d'information de ces algoritmes ainsi que leur efficacité.
 
 \subsubsection{Outils mis en place}\label{ssec:comp_tools}
@@ -228,18 +240,19 @@ La problématique dans le fait d'évaluer la perte d'information liée à diffé
 La solution retenue a été de générer une trace avec \verb!EZTrace! et \verb!PALLAS! et d'utiliser l'application \verb!pallas_editor! qui permet, à partir d'une trace
 existante, d'en créer une nouvelle avec un autre algorithme de compression. Ainsi, on peut comparer des traces identiques avec des algorithmes de compression différents.
 
-En suite, les applications \verb!pallas_getTimestamps! et \verb!pallas_durations! ont été mises en place. La première permet de récupérer, à partir d'une trace, un fichier \verb!.csv! avec 
+Ensuite, les applications \verb!pallas_getTimestamps! et \verb!pallas_durations! ont été mises en place. La première permet de récupérer, à partir d'une trace, un fichier \verb!.csv! avec 
 tous les timestamps de cette dernière, récupérés thread par thread. La seconde réalise le test statistique $R^2$ sur deux échantillons de timestamps (la version sans compression sert d'échantillon
-de référence).
+de référence). Ces deux application représentent environ 240 lignes de code.
 
-Ces des applications n'ont pas pu être regrouppées en une seule car l'architecture actuelle de \verb!PALLAS! ne permet pas de parcourir deux fois la même trace de cette manière 
-(une partie de ce problème a été résolue car initialement il était impossible d'ouvrir deux traces différentes au même endroit).
+Le code de ces applications m'as pris plus de temps que prévu lors de mon stage car il y avait des problématiques internes à \verb!PALLAS! qui m'mempêchaient d'ouvrir deux 
+traces en même temps, donc j'ai eu à tester plusieurs moyens de les contourner (comme le fait de le faire dans des processus séparés, ce qui n'as pas fonctionné).
+La solution retenue a été de faire ces deux programmes de manière séparée et de récupérer les timestamps d'une trace à la fois.
 
 \subsubsection{Résultats obtenus}\label{ssec:comp_res}
 
-Les données récoltées ont été classées dans les tables~\ref{lu},~\ref{bt} et \ref{cg} et permettent comparer les différents algorithmes de compression pour les quelques benchmarks considérés
+Les données récoltées ont été classées dans les tables~\ref{lu},~\ref{bt} et \ref{cg} et permettent de comparer les différentes métriques de compression relatives aux benchmarks considérés
 (\verb!NAS LU!, \verb!NAS BT! et \verb!NAS CG!).
-Les différents algorithmes de compression étudiés sont l'absence de compression (\verb!None!), \verb!ZSDT!, et l'algorithme \verb!ZFP! avec plusieurs seuils de tolérence différents 
+Les différents algorithmes de compression étudiés sont l'absence de compression (\verb!None!), \verb!ZSTD!, et l'algorithme \verb!ZFP! avec plusieurs seuils de tolérence 
 (\verb!0.1!, \verb!0.2!, \verb!0.3!).
 
 % ---------- LU ----------

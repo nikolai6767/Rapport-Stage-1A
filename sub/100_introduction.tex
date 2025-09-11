@@ -42,12 +42,13 @@ De plus, ils font partie de l'équipe \verb!BENAGIL! qui étudie la conception d
 
 \subsection{Contexte et problématique}\label{ssec:introduction_contexte_problematique}
 
-Le PEPR NumpEx est un projet de recherche qui a pour objectif l'élaboration de la pile logicielle de la future machine exascale française, Alice Recoque. L'équipe dirigée par \verb!François TRAHAY!
+Le PEPR NumPEx est un projet de recherche qui a pour objectif l'élaboration de la pile logicielle de la future machine exascale française, Alice Recoque. L'équipe dirigée par \verb!François TRAHAY!
 fait partie du sous-projet Exa-SofT qui cherche à fournir les logiciels et outils de support aux applications. Plus précisément, l'équipe a pour objectif de fournir des outils pour l'analyse des performances
 adaptés au passage à l'échelle exascale. \\
 Afin de réaliser une analyse fine des performances, on utilise les traces d'exécution qui constituent une représentation de tous les évènements ayant lieu lors de l'exécution d'un programme.
 Actuellement, il existe des formats de trace tels que \verb!OTF2! qui stockent les données sans une structure permettant de factoriser les évènements identiques ou bien une analyse rapide sans charger toutes les données. 
-Afin de capturer tous les évènements d'un programme on utilise un outil de traçage, \verb!EZTrace! qui a été notamment développé par \verb!François TRAHAY!.
+Afin de capturer tous les évènements d'un programme on utilise un outil de traçage, \verb!EZTrace! qui a été notamment 
+développé par \verb!François TRAHAY!.
 \\Ainsi, le travail de recherche est centré sur le développement d'un nouveau format de trace d'excution, \verb!PALLAS!, qui doit permettre de tracer des programmes HPC s'exécutant à très large échelle
 (plus de 4096 threads).\\
 \verb!PALLAS! est un format de trace générique (supportant plusieurs outils tels que \verb!OpenMP!, \verb!MPI!, \verb!CUDA!, ...) permettant de factoriser de manière structurée les différents évènements 
@@ -56,7 +57,6 @@ de contention et de communication.
 
 
 
-% TODO Présenter le contexte du stage et identifier les problèmes rencontrés qui justifient la pertinence du stage
 
 %%%%%%%%%
 %%%%%%%%%
@@ -69,7 +69,6 @@ Les objectifs de ce stage sont de réaliser une analyse précise des performance
 l'affichage de toute la trace a été réalisée, puis de manière plus globale l'étude de l'overhead induit par \verb!PALLAS! et l'analyse des processus de compression et d'écriture de la trace sur les disques (temps d'exécution mais 
 également évaluation de la perte d'information causée par la compression). 
 
-% TODO Présenter les objectifs du stage
 
 %%%%%%%%%
 %%%%%%%%%
@@ -81,4 +80,3 @@ l'affichage de toute la trace a été réalisée, puis de manière plus globale 
 de la trace.
 Afin de réaliser cela, j'ai mis un place un certain nombre de scripts \verb!bash! pour mettre en place en exécuter les différentes applications et benchmarks ainsi que des 
 scripts \verb!python! afin de réaliser les différents graphiques présentés dans la suite de ce rapport.
-% TODO Résumé des contributions majeures apportées

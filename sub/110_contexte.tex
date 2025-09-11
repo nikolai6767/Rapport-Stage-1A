@@ -28,8 +28,8 @@ proposés comme \verb!ZFP! qui sont avec perte. Un flush régulier pendant l'ex�
 Enfin, \verb!PALLAS! fournit des outils d'analyse de la trace déjà implémentés tels que: 
 \begin{itemize}
     \item \verb!pallas_print! qui permet d'explorer toute la trace en l'affichant.
-    \item \verb!pallas_contention! qui calcule le score de contention en utilisant uniquement les fichiers de structure (donc sans charger toute la trace).
-    \item \verb!pallas_comm_matrix! qui réalise une matrice de communication MPI en n'utilisant également que la structure de la trace.
+    \item \verb!pallas_contention! qui calcule le score de contention (indicateur permettant de quantifier le nombre de threads se partageant la même ressource) en utilisant uniquement les fichiers de structure (donc sans charger toute la trace).
+    \item \verb!pallas_comm_matrix! qui réalise une matrice de communication (identifiant quels processus s'échangent des données) MPI (Message Passing Interface) en n'utilisant également que la structure de la trace.
     \item \verb!pallas_histogram! qui extrait la distribution des durées grace à un accès précis aux vecteurs de durées concernés.
 \end{itemize}
 
@@ -49,5 +49,5 @@ Les deux configuration utilisées sont :
     \item \verb!EZTrace!/\verb!PALLAS! : on trace à l'aide de l'outil \verb!EZTrace! en utilisant le format de trace \verb!PALLAS!
 \end{itemize}
 
-Afin d'étudier la compression, on utilisera également le programme \verb!pallas_editor! qui permet de passer d'une trace compressée avec un algorithme A en une trace compressée avec
+Afin d'étudier la compression, on utilisera également le programme \verb!pallas_editor! qui permet de passer d'une trace compressée avec un algorithme A à une trace compressée avec
 un algorithme B.
