@@ -14,6 +14,7 @@ Celle-ci permet d'avoir des données statitsiques comme le temps total, les dur�
 
 Ensuite, il a fallu mettre en place la fonction \verb!update_durations! qui permet de mettre à jour la structure \verb!duration!. Cette fonction permet aussi d'initialiser la structure
 lors du premier appel.
+\tcbFileInput{cpp}{\faCode}{lst/struct.cpp}{Struct Timespec}{lst:update}
 Les \verb!struct timespec! sont des structures liées à la librairie \verb!time.h! qui permet de stocker le temps sous forme d'une composante en secondes et d'une composante en nanosecondes, 
 ce qui est utile ici dans le cadre d'une analyse de fonctions de les appels peuvent être extrêmement courts.
 
@@ -46,3 +47,7 @@ SS_{\mathrm{tot}} \;=\; \sum_{i=1}^{n} (y_i - \bar{y})^2.
 Ensuite, l'implémentation est réalisée de la manière suivante, qui permet de passer directement les adresses des fichiers \verb!.csv! contenant les timestamps :
 
 \tcbFileInput{cpp}{\faCode}{lst/r2.cpp}{Mise en place du test $R^2$}{lst:r2}
+
+Par ailleurs, pour parcourir la trace, on procède en parcourant les archives composant la trace, puis les threads relatifs à ces archives puis tous les évènements de ces threads.
+
+\tcbFileInput{cpp}{\faCode}{lst/loop.cpp}{Parcours de la trace}{lst:trace}
