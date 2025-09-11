@@ -52,31 +52,42 @@ développé par \verb!François TRAHAY!.
 \\Ainsi, le travail de recherche est centré sur le développement d'un nouveau format de trace d'excution, \verb!PALLAS!, qui doit permettre de tracer des programmes HPC s'exécutant à très large échelle
 (plus de 4096 threads).\\
 \verb!PALLAS! est un format de trace générique (supportant plusieurs outils tels que \verb!OpenMP!, \verb!MPI!, \verb!CUDA!, ...) permettant de factoriser de manière structurée les différents évènements 
-regroupés en boucles et en séquences. La structure de ces traces permet une analyse post-mortem efficace, avec notamment des outils déjà mis en place comme une matrice
-de contention et de communication.
+regroupés en boucles et en séquences. La structure de ces traces permet une analyse post-mortem efficace, avec notamment des outils d'analyse déjà mis en place.
 
+A travers les graphiques \ref{fig:time} et \ref{fig:size} issus du papier présentant \verb!PALLAS!\cite{pallas_ipdps}, on constate que les formats existants jusque là avaient chacun des défauts
+qui ne permettaient pas leur passage à l'echelle exascale : le format \verb!OTF2! produisait des traces trop volumineuses dans la majorité des cas (avec un facteur 10 par rapport à \verb!PALLAS!)
+et \verb!Pilgrim!, malgré une meilleure compression et factorisation de la trace, avait un algorithme inadapté car ce dernier plantait lors d'applications trop irrégulières.
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/exec_time.png}
+    \caption{Temps d'exécution de différents benchmarks comparant les formats OTF2, PALLAS et Pilgrim}
+    \label{fig:time}
+\end{figure}
 
-
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/trace_size.png}
+    \caption{Comparaison des tailles de traces aux formats OTF2, PALLAS et Pilgrim pour différents Benchmarks}
+    \label{fig:size}
+\end{figure}
 
 %%%%%%%%%
 %%%%%%%%%
 %%%%%%%%%
 %%%%%%%%%
 
-\subsection{Objectifs du stage}\label{ssec:introduction_objectifs}
+\subsection{Objectifs et contributions principales du stage}\label{ssec:introduction_objectifs}
 
 Les objectifs de ce stage sont de réaliser une analyse précise des performances de certains aspects de \verb!PALLAS!. Dans un premier temps une analyse de l'application de \verb!pallas_print! permettant
 l'affichage de toute la trace a été réalisée, puis de manière plus globale l'étude de l'overhead induit par \verb!PALLAS! et l'analyse des processus de compression et d'écriture de la trace sur les disques (temps d'exécution mais 
 également évaluation de la perte d'information causée par la compression). 
 
-
-%%%%%%%%%
-%%%%%%%%%
-%%%%%%%%%
-%%%%%%%%%
-
-\subsection{Contributions principales}\label{ssec:introduction_contributions}
 À travers ce stage j'ai pu proposer une étude approfondie de différents aspects de la librairie \verb!PALLAS!, avec notamment un travail autour des fonctions d'écriture et de compression
 de la trace.
 Afin de réaliser cela, j'ai mis un place un certain nombre de scripts \verb!bash! pour mettre en place en exécuter les différentes applications et benchmarks ainsi que des 
 scripts \verb!python! afin de réaliser les différents graphiques présentés dans la suite de ce rapport.
+%%%%%%%%%
+%%%%%%%%%
+%%%%%%%%%
+%%%%%%%%%
+

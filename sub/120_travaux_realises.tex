@@ -50,11 +50,11 @@ le nombre d'appels au bloc analysé et le temps total passé dans ce bloc.\\
 Enfin, il y a une fonction permettant de mettre cette structure à jour à chaque appel au bloc de code que l'on souhaite analyser.\newline
 Pour visualiser ces données on a des fonctions permettant d'écrire ces données sur le disque.\\
 
-Il a fallu ensuite parcourir le code à analyser et identifier les fonctions et bouts intéressants à étudier.
+Il a fallu ensuite parcourir le code à analyser et identifier les fonctions et sections intéressantes à étudier.
 
 Voici un exemple de code avec l'utilisation des stuctures mises en place pour son étude :
 \tcbFileInput{cpp}{\faCode}{lst/exemple.cpp}{Exemple d'analyse de la fonction write\_to\_file relative à un sous-vecteur}{lst:update}
-On observe alors que l'on a bien l'utilisation de la librairie \verb!time.h! avec la structure \verb!struct timespec! ainsi que de la fonction \verb!clock_gettime! utilisée
+On observe alors que l'on a bien l'utilisation de la librairie \verb!time.h! avec la structure \verb!struct timespec! ainsi que de la fonction \verb!clock_gettime!, utilisée
 avec la caractéristique \verb!CLOCK_MONOTONIC! qui signifie que l'on enregistre le temps à partir d'un point défini (\verb!t1! ici) et non de manière absolue. Enfin, on a utilise bien
 \verb!update_durations! pour mettre à jour nos données et \verb!duration_write_csv! pour écrire les données sur les disques.
 
@@ -153,12 +153,16 @@ Ainsi, on peut conclure que dans les cas d'applications très régulières, l'ov
 \subsubsection{Situation actuelle}\label{ssec:wrt_situ}
 
 \verb!PALLAS! enregistre les différentes données d'exécution sous forme de listes doublement chainées, décomposées en sous-listes dont la taille est fixée.
-Tout le vecteur est stocké en mémoire et écrit d'un seul coup sur les disques en fin d'exécution.
+Tout le vecteur est stocké en mémoire et écrit d'un seul coup sur les disques en fin d'exécution.\\
 L'algorithme de compression retenu par défaut est \verb!ZSTD! qui est un algorithme sans pertes.
 
 \subsubsection{Methodes d'analyse}\label{ssec:wrt_analysis}
 
-Un facteur intéressant à faire varier est la taille des sous-vecteurs permettant de stocker les données. Par défaut, celle-ci est fixée à \verb!1000!.
+Un facteur intéressant à faire varier est la taille des sous-vecteurs permettant de stocker les données.
+En effet, ce facteur pourrait avoir un impact sur la mémoire pour des traces très importantes (stockage de plusieurs dizaines voir centaines de Go en mémoire en plus des données de l'application).
+De plus, ce dernier a un impact sur la vitesse de détection des boucles car l'on a besoin de charger des sous-vecteurs entiers pour parcourir les évènements (dont le temps d'exécution dépend donc de la tailles des 
+sous-vecteurs)\\
+Par défaut, cette taille de sous-vecteur est fixée à \verb!1000!.\\
 Afin, de les faire varier, j'ai appliqué des patchs git (qui permettent d'enregistrer différents commits) à la taille de ces sous-vecteurs.
 Les tailles testées sont \verb!100!, \verb!1000!, \verb!10000!, \verb!100000!, \verb!500000!, \verb!1000000!.
 Les données recueillies sont les statistiques sur le temps d'écriture et de compression (par fonctions puis par parties de fonctions) lors de l'exécution
@@ -179,7 +183,7 @@ Puis des graphiques sont réalisés grace à des scprits \verb!python! qui perme
     \caption{Fonctions d'écriture et de compression}
     \label{fig:cw_global}
 \end{figure}
-Tout d'abord, l'écriture sur le disque ainsi que la compression des données sont réaliséss par la fonction \verb!pallas_compress_write! (abrégée par pcw dans le graphique~\ref{fig:pcw_global}),
+Tout d'abord, l'écriture sur les disques ainsi que la compression des données sont réalisés par la fonction \verb!pallas_compress_write! (abrégée par pcw dans le graphique~\ref{fig:pcw_global}),
 donc avant de lancer les programmes sur différentes tailles de sous-vecteurs, il faut observer cette fonction là.
 Le nombre d'appels à chaque fonction dans chacun des benchmarks est écrit au dessus de chaque barre.\\
 On remarque que le temps total de la fonction de compression et d'écriture est dû principalement à la fonction d'écriture ainsi que celle de compression.
